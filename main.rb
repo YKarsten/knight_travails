@@ -6,6 +6,10 @@
 # y +/- 2 x +/- 1
 # check board boundary
 
+# At max 7 steps/ turns to reach any square
+# This could be useful to prevent infinite loops.
+# more elegant idea would be to keep track of squares that have been visited before
+
 # Information in classes
 # board class
 #   coordinates
