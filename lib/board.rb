@@ -8,13 +8,13 @@ class Board
   def self.start_chess
     board = new
     8.times do |c|
-      board[[1, c]] = Pawn.new(:black)
-      board[[6, c]] = Pawn.new(:white)
+      board[[1, c]] = Pawn.new(board, [1, c], :black)
+      board[[6, c]] = Pawn.new(board, [6, c], :white)
     end
-    board[[0, 2]] = Pawn.new(:black)
-    board[[0, 5]] = Pawn.new(:black)
-    board[[7, 2]] = Pawn.new(:white)
-    board[[7, 5]] = Pawn.new(:white)
+    board[[0, 2]] = Knight.new(board, [0, 2], :black)
+    board[[0, 5]] = Knight.new(board, [0, 5], :black)
+    board[[7, 2]] = Knight.new(board, [7, 2], :white)
+    board[[7, 5]] = Knight.new(board, [7, 5], :white)
     board
   end
 

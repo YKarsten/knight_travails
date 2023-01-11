@@ -14,10 +14,10 @@ module Stepable
       next unless board.in_bounds?(loc)
 
       moves << loc if board.empty?(loc)
-      moves << loc if board.enemy?(loc)
+      moves << loc if enemy?(loc)
 
-    end
+    end 
+    moves
   end
-  moves
 
 end

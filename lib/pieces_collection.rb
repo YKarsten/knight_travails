@@ -1,5 +1,8 @@
 # A collection of classes that need to be required for the Board class
 
+require_relative './slideable'
+require_relative './stepable'
+
 require_relative './piece'
 require_relative './pawn'
 require_relative './knight'
