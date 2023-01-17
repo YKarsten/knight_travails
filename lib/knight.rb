@@ -49,13 +49,25 @@ class Knight < Piece
     result
   end
 
-  def knight_move(level_order, goal)
+  def knight_move(level_order, goal, result = [])
     # return unless goal.instance_of?(array) && goal.length == 2
+    goal = goal.data unless goal.instance_of?(Array)
+      
+    goal_node = level_order.find { |node| node.data == goal }
+    result << goal_node
 
-    level_order.find { |node| node.data == goal }
+    return print_path(result).reverse if goal_node.parent == nil
+
+    knight_move(level_order, goal_node.parent, result)
     # print node data
     # go to parent class
     # repeat until parent = nil
     # invert the array
+
+  end
+
+  def print_path(knight_moves, result = [])
+    knight_moves.each { |node| result << node.data }
+    result
   end
 end

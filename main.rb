@@ -26,7 +26,7 @@ moves = board[[0, 2]].available_moves
 level_order = board[[0, 2]].level_order
 
 puts 'Return the first node that matches my goal position'
-p board[[0, 2]].knight_move(level_order, [1, 0])
+p board[[0, 2]].knight_move(level_order, [2, 6])
 
 
 # puts text_board.render
