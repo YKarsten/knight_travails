@@ -20,7 +20,15 @@ puts text_board.render
 # p board[[1, 2]].available_moves
 
 # Display all possible moves for the knight at [0, 2]
-p board[[0, 2]].available_moves
+puts "available moves"
+moves = board[[0, 2]].available_moves
+
+level_order = board[[0, 2]].level_order
+
+puts 'Return the first node that matches my goal position'
+p board[[0, 2]].knight_move(level_order, [1, 0])
+
+
 # puts text_board.render
 
 # b = Board.new
