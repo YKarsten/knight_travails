@@ -28,8 +28,8 @@ class Knight < Piece
 
     # While there is at least one discovered node
     until queue.empty?
-      # push the address of the nodes children to the queue
 
+      # push the address of the nodes children to the queue
       queue << queue[0].first unless queue[0].first.nil?
       queue << queue[0].second unless queue[0].second.nil?
       queue << queue[0].third unless queue[0].third.nil?
@@ -49,23 +49,20 @@ class Knight < Piece
     result
   end
 
+  # Take the level order array and find the first match for the desired position.
+  # Go back up the tree to the root using the parent attribute of node.
   def knight_move(level_order, goal, result = [])
-    # return unless goal.instance_of?(array) && goal.length == 2
     goal = goal.data unless goal.instance_of?(Array)
-      
+
     goal_node = level_order.find { |node| node.data == goal }
     result << goal_node
 
-    return print_path(result).reverse if goal_node.parent == nil
+    return print_path(result).reverse if goal_node.parent.nil?
 
     knight_move(level_order, goal_node.parent, result)
-    # print node data
-    # go to parent class
-    # repeat until parent = nil
-    # invert the array
-
   end
 
+  # print the knight moves as a nice Array
   def print_path(knight_moves, result = [])
     knight_moves.each { |node| result << node.data }
     result
