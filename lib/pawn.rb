@@ -2,6 +2,7 @@
 
 # Basic pawn chess piece
 class Pawn < Piece
+  # Currently black is always on the topside of the board so the black pawns walk down the white ones walk up.
   def fwd_direction
     color == :black ? 1 : -1
   end

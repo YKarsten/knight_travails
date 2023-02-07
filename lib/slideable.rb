@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Allows piece like rook, bishop and queen to slide across the board. Piece class needs to include this.
 module Slideable
   def available_moves

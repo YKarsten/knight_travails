@@ -2,6 +2,7 @@
 
 # Class that holds location values of a 8x8 chess board. Can be used to determine valid moves
 class Board
+  #  attr_reader allows access to the instance variable by calling it without the @ in front
   attr_reader :grid
 
   # Makes a board and populates the second and seventh rank with pawns
@@ -16,26 +17,31 @@ class Board
     board[[0, 5]] = Knight.new(board, [0, 5], :black)
     board[[7, 2]] = Knight.new(board, [7, 2], :white)
     board[[7, 5]] = Knight.new(board, [7, 5], :white)
+    # rooks
+    # bishops
+    # queens
+    # kings
     board
   end
 
   def initialize
-    @grid = Array.new(8) { Array.new }
+    # instance variable
+    @grid = Array.new(8) { [] }
   end
 
-  # set data for location
+  # set data for location/ put a piece on the board
   def []=(location, piece)
     row, column = location
     grid[row][column] = piece
   end
 
-  # get data for location
+  # get data for location/ what piece is in that square? or empty?
   def [](location)
     row, column = location
     grid[row][column]
   end
 
-  # check if location is valid. returns boolean
+  # is the location within the board?
   def in_bounds?(location)
     row, column = location
     row < grid.length &&
@@ -47,5 +53,9 @@ class Board
   def empty?(location)
     row, column = location
     grid[row][column].nil?
+  end
+
+  def move_piece(start_pos, end_pos)
+
   end
 end

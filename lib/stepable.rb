@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Allows piece like king and knight/pawn? to step across the board
 module Stepable
   def available_moves
     moves = []
@@ -5,7 +8,6 @@ module Stepable
     # dr: direction_row, dc: direction_column
     move_dirs.each do |(dr, dc)|
       current_r, current_c = location
-
 
       current_r += dr
       current_c += dc
@@ -15,9 +17,7 @@ module Stepable
 
       moves << loc if board.empty?(loc)
       moves << loc if enemy?(loc)
-
-    end 
+    end
     moves
   end
-
 end

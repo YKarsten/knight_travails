@@ -13,6 +13,7 @@ class BoardRender
       8.times do |column|
         piece = board[[row, column]]
         if piece.nil?
+          # unicode empty square character
           print "\u25A1" + ' '
         else
           print "#{board[[row, column]]} "
