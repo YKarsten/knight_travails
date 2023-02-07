@@ -5,22 +5,37 @@ class Board
   #  attr_reader allows access to the instance variable by calling it without the @ in front
   attr_reader :grid
 
-  # Makes a board and populates the second and seventh rank with pawns
+  # factory method
+  # Makes a new board and populates it with pieces
   def self.start_chess
     board = new
     8.times do |c|
+      # pawns
       board[[1, c]] = Pawn.new(board, [1, c], :black)
       board[[6, c]] = Pawn.new(board, [6, c], :white)
     end
-    # populate the board with knights
+    # knights
     board[[0, 2]] = Knight.new(board, [0, 2], :black)
     board[[0, 5]] = Knight.new(board, [0, 5], :black)
     board[[7, 2]] = Knight.new(board, [7, 2], :white)
     board[[7, 5]] = Knight.new(board, [7, 5], :white)
     # rooks
+    board[[0, 0]] = Rook.new(board, [0, 0], :black)
+    board[[0, 7]] = Rook.new(board, [0, 7], :black)
+    board[[7, 0]] = Rook.new(board, [7, 0], :white)
+    board[[7, 7]] = Rook.new(board, [7, 7], :white)
     # bishops
+    board[[0, 1]] = Bishop.new(board, [0, 1], :black)
+    board[[0, 6]] = Bishop.new(board, [0, 6], :black)
+    board[[7, 1]] = Bishop.new(board, [7, 1], :white)
+    board[[7, 6]] = Bishop.new(board, [7, 6], :white)
     # queens
+    board[[0, 3]] = Queen.new(board, [0, 3], :black)
+    board[[7, 3]] = Queen.new(board, [7, 3], :white)
     # kings
+    board[[0, 4]] = King.new(board, [0, 4], :black)
+    board[[7, 4]] = King.new(board, [7, 4], :white)
+
     board
   end
 
