@@ -10,7 +10,10 @@ describe Board do
   describe '[]= aka setter method' do
     context 'when placing a pawn' do
       it 'changes the value for that location' do
-
+        piece = 'pawn'
+        location = [1, 1]
+        board[location] = piece
+        expect(board[location]).to be('pawn')
       end
     end
   end
