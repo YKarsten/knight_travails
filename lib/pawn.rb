@@ -2,7 +2,7 @@
 
 # Basic pawn chess piece
 class Pawn < Piece
-  # Currently black is always on the topside of the board so the black pawns walk down the white ones walk up.
+  # Currently black is always on the topside of the board so the black pawns walk down the white ones walk up the board.
   def fwd_direction
     color == :black ? 1 : -1
   end
@@ -30,6 +30,8 @@ class Pawn < Piece
     moves.select { |m| board.in_bounds?(m) }
   end
 
+  # puts or p.to_s override
+  # what does this piece look like if we print it to the console?
   def to_s
     # depending on the color, this prints unicode chess pieces in black or white
     color == :black ? "\u265F" : "\u2659"

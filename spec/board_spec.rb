@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
+
 require_relative '../lib/board'
 
-
 describe Board do
-  let(:pawn) {double('pawn')}
-  subject(:board) {described_class.new}
+  subject(:board) { described_class.new }
 
   describe '[]= aka setter method' do
     context 'when placing a pawn' do
       it 'changes the value for that location' do
+        # this should eventually reference the actual Pawn class
         piece = 'pawn'
         location = [1, 1]
         board[location] = piece
@@ -49,3 +50,5 @@ describe Board do
     context 'When the board is populated with pawns'
   end
 end
+
+# rubocop:enable Metrics/BlockLength

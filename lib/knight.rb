@@ -8,6 +8,8 @@ require_relative './piece'
 class Knight < Piece
   attr_accessor :result
 
+  # puts or p.to_s override
+  # what does this piece look like if we print it to the console?
   def to_s
     # depending on the color, this prints unicode chess pieces in black or white
     color == :black ? "\u265E" : "\u2658"
