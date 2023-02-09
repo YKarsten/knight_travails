@@ -18,15 +18,17 @@ class Pawn < Piece
     one_forward = [current_r + fwd_direction, current_c]
     moves << one_forward if board.empty?(one_forward)
 
-    # 2 forward move
+    # 2 forward move (if piece is at starting position)
     two_forward = [current_r + fwd_direction * 2, current_c]
     moves << two_forward if board.empty?(two_forward) && board.empty?(one_forward) && at_start?
 
+    # if enemy diagonal
     diag_left = [current_r + fwd_direction, current_c + 1]
     diag_right = [current_r + fwd_direction, current_c + -1]
     moves << diag_left if enemy?(diag_left)
     moves << diag_right if enemy?(diag_right)
 
+    # filter out moves that go beyond the boundaries
     moves.select { |m| board.in_bounds?(m) }
   end
 

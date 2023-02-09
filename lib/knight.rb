@@ -6,6 +6,8 @@ require_relative './piece'
 
 # Basic pawn chess piece
 class Knight < Piece
+  include Stepable
+
   attr_accessor :result
 
   # puts or p.to_s override

@@ -11,21 +11,24 @@ board = Board.start_chess
 text_board = BoardRender.new(board)
 puts text_board.render
 
-puts 'available moves'
-puts board[[0, 2]].available_moves
+# puts 'pawn moves'
+# p board[[1, 0]].available_moves
 
-level_order = board[[0, 2]].level_order
+# puts 'available moves'
+# puts board[[0, 2]].available_moves
+
+# level_order = board[[0, 2]].level_order
 
 # Check for knight travails functionality
-puts 'Starting from [0,2], whats the shortest path to reach [2,6] for a knight?'
-p board[[0, 2]].knight_move(level_order, [2, 6])
+# puts 'Starting from [0,2], whats the shortest path to reach [2,6] for a knight?'
+# p board[[0, 2]].knight_move(level_order, [2, 6])
 
-# p board[[1, 1]].available_moves
+p board[[1, 1]].available_moves
 
-# board[[2, 2]] = Pawn.new(board, [2, 2], :white)
-# p board[[1, 1]].available_moves
-# board[[2, 0]] = Pawn.new(board, [2, 0], :white)
-# p board[[1, 1]].available_moves
+board[[2, 2]] = Pawn.new(board, [2, 2], :white)
+p board[[1, 1]].available_moves
+board[[2, 0]] = Pawn.new(board, [2, 0], :white)
+p board[[1, 1]].available_moves
 
 # p board[[1, 2]].available_moves
 

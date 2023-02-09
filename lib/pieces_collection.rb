@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A collection of classes that need to be required for the Board class
 
 require_relative './slideable'
