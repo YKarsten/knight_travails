@@ -71,6 +71,21 @@ class Board
   end
 
   def move_piece(start_pos, end_pos)
+    # validate that end pos is in available moves
+    piece = self[start_pos]
 
+    unless piece.available_moves.include(end_pos)
+      raise "End position #{end_pos} not in available moves: #{piece.available_moves}"
+    end
+    raise 'End position not in bounds' unless in_bounds?(end_pos)
+
+    # remove the piece from the board at the current location
+    self[start_pos] = nil
+
+    # place the piece in the board at the new location
+    self[end_pos] = piece
+
+    # update the piece's internal location with end pos
+    piece.location = end_pos
   end
 end
