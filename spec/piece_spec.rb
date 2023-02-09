@@ -7,8 +7,7 @@ require_relative '../lib/stepable'
 require_relative '../lib/piece'
 require_relative '../lib/board'
 
-require_relative '../lib/king'
-require_relative '../lib/pawn'
+require_relative '../lib/pieces_collection'
 
 # Pawn tests
 describe Board do
@@ -57,14 +56,34 @@ end
 # King tests
 
 describe Board do
-  subject(:board) {described_class.new}
+  subject(:board) { described_class.new }
   describe 'King #available moves' do
+    context 'when the king is in the starting position on a new board' do
+      it 'can not move' do
+        board = Board.start_chess
+        # black king
+        test_piece = board[[0, 4]]
+
+        expect(test_piece.available_moves.size).to eq(0)
+      end
+    end
     context 'when the king is in the middle of an empty board' do
       it 'can move to 8 positions' do
-        board[[4, 4]] = King.new(board, [4, 4], :black)
+        board[[4, 4]] = King.new(board, [4, 4], :white)
         test_piece = board[[4, 4]]
 
         expect(test_piece.available_moves.size).to eq(8)
+      end
+    end
+    context 'when the 3 pawns in front of the king are removed' do
+      it 'can move to 3 positions' do
+        board[[7, 3]] = Queen.new(board, [7, 3], :white)
+        board[[7, 4]] = King.new(board, [7, 4], :white)
+        board[[7, 5]] = Bishop.new(board, [7, 5], :white)
+        # white king
+        test_piece = board[[7, 4]]
+
+        expect(test_piece.available_moves).to eq([[6, 3], [6, 4], [6, 5]])
       end
     end
   end

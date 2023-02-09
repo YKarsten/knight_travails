@@ -46,3 +46,10 @@ p board[[1, 1]].available_moves
 # b = Board.new
 # b[[0, 0]] = Pawn.new(b, [0, 0], :black)
 # p b[[0, 0]].available_moves
+
+test = Board.new
+test[[7, 3]] = Queen.new(test, [7, 3], :black)
+test[[7, 4]] = King.new(test, [7, 4], :black)
+test[[7, 5]] = Bishop.new(test, [7, 5], :black)
+
+p test[[7,4]].available_moves

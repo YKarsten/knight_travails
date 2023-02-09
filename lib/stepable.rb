@@ -7,6 +7,8 @@ module Stepable
 
     # dr: direction_row, dc: direction_column
     move_dirs.each do |(dr, dc)|
+      current_r, current_c = location
+
       current_r += dr
       current_c += dc
       loc = current_r, current_c
