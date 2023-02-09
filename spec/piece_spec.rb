@@ -113,7 +113,7 @@ describe Queen do
         board[[3, 3]] = Queen.new(board, [3, 3], :white)
         test_piece = board[[3, 3]]
 
-        expect(test_piece.available_moves).to include([1, 3], [1, 1], [1, 3])
+        expect(test_piece.available_moves).to include([1, 3], [1, 1], [1, 5])
       end
     end
   end
@@ -125,7 +125,7 @@ describe Rook do
     context 'when a rook is in its starting position [0, 0] on a new populated board' do
       it 'can not move' do
         board = Board.start_chess
-        # black queen
+        # black rook
         test_piece = board[[0, 0]]
 
         expect(test_piece.available_moves.size).to eq(0)
@@ -147,6 +147,39 @@ describe Rook do
         test_piece = board[[3, 3]]
 
         expect(test_piece.available_moves).to include([1, 3])
+      end
+    end
+  end
+end
+
+describe Bishop do
+  subject(:board) { Board.new }
+  describe 'Rook #available_moves' do
+    context 'when a bishop is in its starting position [0, 2] on a new populated board' do
+      it 'can not move' do
+        board = Board.start_chess
+        # black bishop
+        test_piece = board[[0, 1]]
+
+        expect(test_piece.available_moves.size).to eq(0)
+      end
+    end
+    context 'when a bishop is in position [0, 1] on an empty board ' do
+      it 'can reach [1, 0] and [6, 7]' do
+        board[[0, 1]] = Bishop.new(board, [0, 1], :black)
+        test_piece = board[[0, 1]]
+
+        expect(test_piece.available_moves.size).to eq(7)
+        expect(test_piece.available_moves).to include([1, 0], [6, 7])
+      end
+    end
+    context 'when the board is populated' do
+      it 'can capture enemy pieces' do
+        board = Board.start_chess
+        board[[3, 3]] = Bishop.new(board, [3, 3], :white)
+        test_piece = board[[3, 3]]
+
+        expect(test_piece.available_moves).to include([1, 1], [1, 5])
       end
     end
   end
