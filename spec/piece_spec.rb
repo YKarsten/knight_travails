@@ -25,7 +25,7 @@ describe Board do
     end
     context 'when a pawn is at its starting position and flanked by two enemy pieces' do
       it 'can move to 4 different positions' do
-        board[[1, 1]] = Pawn.new(board, [1, 1], :black)
+        board = Board.start_chess
         test_piece = board[[1, 1]]
 
         board[[2, 0]] = Pawn.new(board, [1, 1], :white)
