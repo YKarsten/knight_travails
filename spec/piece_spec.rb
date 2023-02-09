@@ -55,8 +55,8 @@ end
 
 # King tests
 
-describe Board do
-  subject(:board) { described_class.new }
+describe Pawn do
+  subject(:board) { Board.new }
   describe 'King #available moves' do
     context 'when the king is in the starting position on a new board' do
       it 'can not move' do
