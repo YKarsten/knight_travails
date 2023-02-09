@@ -30,6 +30,23 @@ p board[[1, 1]].available_moves
 board[[2, 0]] = Pawn.new(board, [2, 0], :white)
 p board[[1, 1]].available_moves
 
+puts 'queen moves'
+puts board[[0,5]]
+puts board[[0,3]]
+
+puts board[[1,1]]
+puts board[[1,2]]
+puts board[[1,3]]
+
+p board[[0,3]].available_moves
+
+board[[3,3]] = Queen.new(board, [3,3], :white)
+puts 'white queen moves'
+p board[[3,3]].available_moves
+
+board[[3,3]] = Queen.new(board, [3,3], :black)
+puts 'black queen moves'
+p board[[3,3]].available_moves
 # p board[[1, 2]].available_moves
 
 # Display all possible moves for the knight at [0, 2]
@@ -47,9 +64,3 @@ p board[[1, 1]].available_moves
 # b[[0, 0]] = Pawn.new(b, [0, 0], :black)
 # p b[[0, 0]].available_moves
 
-test = Board.new
-test[[7, 3]] = Queen.new(test, [7, 3], :black)
-test[[7, 4]] = King.new(test, [7, 4], :black)
-test[[7, 5]] = Bishop.new(test, [7, 5], :black)
-
-p test[[7,4]].available_moves

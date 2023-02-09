@@ -3,15 +3,13 @@
 # rubocop:disable Metrics/BlockLength
 
 # These HAVE to be at the top, before loading the piece classes
-require_relative '../lib/stepable'
+require_relative '../lib/pieces_collection'
 require_relative '../lib/piece'
 require_relative '../lib/board'
 
-require_relative '../lib/pieces_collection'
-
 # Pawn tests
-describe Board do
-  subject(:board) { described_class.new }
+describe Pawn do
+  subject(:board) { Board.new }
 
   describe 'Pawn #available_moves' do
     context 'when a pawn is on an empty board in starting position' do
@@ -55,7 +53,7 @@ end
 
 # King tests
 
-describe Pawn do
+describe King do
   subject(:board) { Board.new }
   describe 'King #available moves' do
     context 'when the king is in the starting position on a new board' do
@@ -89,4 +87,68 @@ describe Pawn do
   end
 end
 
+describe Queen do
+  subject(:board) { Board.new }
+  describe 'Queen #available_moves' do
+    context 'when the queen is in its starting position on a new populated board' do
+      it 'can not move' do
+        board = Board.start_chess
+        # black queen
+        test_piece = board[[0, 3]]
+
+        expect(test_piece.available_moves.size).to eq(0)
+      end
+    end
+    context 'when the queen is in its starting position on an empty board ' do
+      it 'can slide in all directions' do
+        board[[1, 4]] = Queen.new(board, [1, 4], :black)
+        test_piece = board[[1, 4]]
+
+        expect(test_piece.available_moves.size).to eq(23)
+      end
+    end
+    context 'when the board is populated' do
+      it 'can capture enemy pieces' do
+        board = Board.start_chess
+        board[[3, 3]] = Queen.new(board, [3, 3], :white)
+        test_piece = board[[3, 3]]
+
+        expect(test_piece.available_moves).to include([1, 3], [1, 1], [1, 3])
+      end
+    end
+  end
+end
+
+describe Rook do
+  subject(:board) { Board.new }
+  describe 'Rook #available_moves' do
+    context 'when a rook is in its starting position [0, 0] on a new populated board' do
+      it 'can not move' do
+        board = Board.start_chess
+        # black queen
+        test_piece = board[[0, 0]]
+
+        expect(test_piece.available_moves.size).to eq(0)
+      end
+    end
+    context 'when a rook is in position [0, 0] on an empty board ' do
+      it 'can reach the top left and bottom right end of the board' do
+        board[[0, 0]] = Rook.new(board, [0, 0], :black)
+        test_piece = board[[0, 0]]
+
+        expect(test_piece.available_moves.size).to eq(14)
+        expect(test_piece.available_moves).to include([7, 0], [0, 7])
+      end
+    end
+    context 'when the board is populated' do
+      it 'can capture enemy pieces' do
+        board = Board.start_chess
+        board[[3, 3]] = Rook.new(board, [3, 3], :white)
+        test_piece = board[[3, 3]]
+
+        expect(test_piece.available_moves).to include([1, 3])
+      end
+    end
+  end
+end
 # rubocop:enable Metrics/BlockLength
