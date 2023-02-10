@@ -70,6 +70,30 @@ class Board
     grid[row][column].nil?
   end
 
+  def in_check?(color)
+    # find returns the actual instance of the king.
+    # select would return an array that doesnt support #location method
+    king = pieces.find { |piece| piece.color == color && piece.is_a?(King) }.location
+
+    # just in case if this happens
+    raise 'No king on the board' if king.nil?
+
+    king_pos = king.location
+
+    pieces.reject { |piece| piece == color }.each do |piece|
+      return false if piece.available_moves.include?(king_pos)
+    end
+    false
+    # loop over all the pieces of the opposite color
+    #  if any of their pieces available_moves includes the king of color
+    #  then king if in check
+  end
+
+  def pieces
+    # turn the 2D array into a 1D array and remove the nil values
+    grid.flatten.reject { |piece| piece.nil? }
+  end
+
   def move_piece(start_pos, end_pos)
     # validate that end pos is in available moves
     piece = self[start_pos]
