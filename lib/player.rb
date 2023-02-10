@@ -8,9 +8,14 @@ class Player
   end
 
   def get_pos
-    gets.
-    chomp.
-    split(",").
-    map {|part| part.to_i}
+    # get input from the player
+    # remove the newlines
+    # split the string along the comma
+    # map it to integers
+    # return the result
+    gets
+      .chomp
+      .split(",")
+      .map {|part| part.to_i}
   end
 end
