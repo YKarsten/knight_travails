@@ -17,9 +17,21 @@ class Game
   end
 
   def play
-    # render the board
-    @renderer.render
-    puts "It's #{current_player.color}'s turn"
+    until over?
+      # render the board
+      @renderer.render
+      puts "It's #{current_player.color}'s turn"
+      take_turn
+      swap_player!
+    end
+  end
+
+  def over?
+    # placeholder for now
+    false
+  end
+
+  def take_turn
     start_pos = nil
 
     # prompt current player to enter a starting position
@@ -44,7 +56,7 @@ class Game
         # in case there is the specific error of not providing a valid end position.
         # rescue that error and provide a custom message.
       rescue InavlidMoveError => e
-        pus e.message
+        puts e.message
       end
     end
   end
