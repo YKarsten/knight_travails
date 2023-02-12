@@ -41,7 +41,7 @@ class Board
 
   def initialize
     # instance variable
-    @grid = Array.new(8) { [] }
+    @grid = Array.new(8) { Array.new(8, NullPiece.instance) }
   end
 
   # set data for location/ put a piece on the board
@@ -100,14 +100,14 @@ class Board
 
   def pieces
     # turn the 2D array into a 1D array and remove the nil values
-    grid.flatten.reject { |piece| piece.nil? }
+    grid.flatten.reject { |piece| piece.is_a(NullPiece) }
   end
 
   def move_piece(start_pos, end_pos)
     # validate that end pos is in safe moves
     piece = self[start_pos]
 
-    unless piece.available_moves.include?(end_pos)
+    unless piece.safe_moves.include?(end_pos)
       raise InavlidMoveError.new(
         "End position #{end_pos} not in available moves: #{piece.safe_moves}"
       )
@@ -122,7 +122,7 @@ class Board
   def move_piece!(start_pos, end_pos)
     # remove the piece from the board at the current location
     # place the piece in the board at the new location
-    self[start_pos], self[end_pos] = nil, self[start_pos]
+    self[start_pos], self[end_pos] = NullPiece.instance, self[start_pos]
 
     # update the piece's internal location with end pos
     self[end_pos].location = end_pos

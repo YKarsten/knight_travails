@@ -19,16 +19,26 @@ class Game
   def play
     until over?
       # render the board
-      @renderer.render
+      renderer.render
       puts "It's #{current_player.color}'s turn"
+      puts "#{curren_player.color} is in check" if board.in_check?(current_player.color)
+
       take_turn
       swap_player!
     end
+    # When the game is over, swap the player again
+    # Puts a message who won
+    # print the board
+    swap_player!
+    puts "Game over! The winner is: #{current_player.color}"
+    renderer.render
   end
 
   def over?
-    # placeholder for now
-    false
+    # checkmated
+    board.checkmate?(current_player.color) ||
+      # stalemate
+      current_player.pieces.all? { |piece| piece.available_moves.empty? }
   end
 
   def take_turn

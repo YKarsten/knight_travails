@@ -11,12 +11,7 @@ class BoardRender
   def render
     8.times do |row|
       8.times do |column|
-        piece = board[[row, column]]
-        if piece.nil?
-          print "\u25A1" + ' '
-        else
-          print "#{board[[row, column]]} "
-        end
+        print "#{board[[row, column]]} "
       end
       puts ''
     end
