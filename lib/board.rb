@@ -75,18 +75,23 @@ class Board
     # select would return an array that doesnt support #location method
     king = pieces.find { |piece| piece.color == color && piece.is_a?(King) }.location
 
-    # just in case if this happens
+    # guard clause
     raise 'No king on the board' if king.nil?
 
     king_pos = king.location
 
+    # loop over all the pieces of the opposite color
     pieces.reject { |piece| piece == color }.each do |piece|
-      return false if piece.available_moves.include?(king_pos)
+      #  if any of their pieces safe_moves includes the king of color
+      # return true, the king is in check
+      return true if piece.safe_moves.include?(king_pos)
     end
     false
-    # loop over all the pieces of the opposite color
-    #  if any of their pieces available_moves includes the king of color
-    #  then king if in check
+  end
+
+  def checkmate?(color)
+    return false unless in_check?(color)
+
   end
 
   def pieces
@@ -95,12 +100,12 @@ class Board
   end
 
   def move_piece(start_pos, end_pos)
-    # validate that end pos is in available moves
+    # validate that end pos is in safe moves
     piece = self[start_pos]
 
-    unless piece.available_moves.include?(end_pos)
+    unless piece.safe_moves.include?(end_pos)
       raise InavlidMoveError.new(
-        "End position #{end_pos} not in available moves: #{piece.available_moves}"
+        "End position #{end_pos} not in available moves: #{piece.safe_moves}"
       )
     end
     raise 'End position not in bounds' unless in_bounds?(end_pos)
@@ -113,5 +118,22 @@ class Board
 
     # update the piece's internal location with end pos
     piece.location = end_pos
+  end
+
+  # dup is also a ruby method, but it doesnt do a deep copy of the board
+  # this method copies the board without a memory referency to the original board
+  def dup
+    new_board = Board.new
+    pieces.each do |piece|
+      # the new board also needs reference to a "deep copy" of the pieces
+      new_piece = piece.class.new(
+        new_board,
+        piece.location,
+        piece.color
+      )
+      new_board[new_piece.location] = new_piece
+    end
+
+    new_board
   end
 end
