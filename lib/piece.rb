@@ -20,7 +20,7 @@ class Piece
       # try the move
 
       new_board = board.dup
-      new_board.move_piece(location, move)
+      new_board.move_piece!(location, move)
       # if not in check
       unless new_board.in_check?(color)
         # add the move to the moves array

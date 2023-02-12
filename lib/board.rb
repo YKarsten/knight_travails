@@ -82,9 +82,9 @@ class Board
 
     # loop over all the pieces of the opposite color
     pieces.reject { |piece| piece == color }.each do |piece|
-      #  if any of their pieces safe_moves includes the king of color
+      #  if any of their pieces available_moves includes the king of color
       # return true, the king is in check
-      return true if piece.safe_moves.include?(king_pos)
+      return true if piece.available_moves.include?(king_pos)
     end
     false
   end
@@ -92,6 +92,10 @@ class Board
   def checkmate?(color)
     return false unless in_check?(color)
 
+    # select all pieces of one color
+    color_pieces = pieces.select { |piece| piece.color == color }
+    # check if the pieces have any safe_move
+    color_pieces.all? { |piece| piece.safe_moves.empty? }
   end
 
   def pieces
@@ -103,21 +107,25 @@ class Board
     # validate that end pos is in safe moves
     piece = self[start_pos]
 
-    unless piece.safe_moves.include?(end_pos)
+    unless piece.available_moves.include?(end_pos)
       raise InavlidMoveError.new(
         "End position #{end_pos} not in available moves: #{piece.safe_moves}"
       )
     end
     raise 'End position not in bounds' unless in_bounds?(end_pos)
 
-    # remove the piece from the board at the current location
-    self[start_pos] = nil
+    move_piece!(start_pos, end_pos)
+  end
 
+  # Disconnect the check ups and the actual movement of the piece
+  # prevents recursive loops for checkmate situations.
+  def move_piece!(start_pos, end_pos)
+    # remove the piece from the board at the current location
     # place the piece in the board at the new location
-    self[end_pos] = piece
+    self[start_pos], self[end_pos] = nil, self[start_pos]
 
     # update the piece's internal location with end pos
-    piece.location = end_pos
+    self[end_pos].location = end_pos
   end
 
   # dup is also a ruby method, but it doesnt do a deep copy of the board
