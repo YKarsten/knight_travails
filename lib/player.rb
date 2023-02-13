@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Class used to store a color and get input to move a piece
 class Player
   attr_reader :color
 
@@ -15,7 +16,7 @@ class Player
     # return the result
     gets
       .chomp
-      .split(",")
+      .split(',')
       .map {|part| part.to_i}
   end
 end

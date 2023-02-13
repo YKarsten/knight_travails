@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './node'
-require_relative './board'
+require_relative '/home/yannik/repos/knight_travails/lib/board'
 
 # A balanced binary search tree of 8 levels that represents the positions a knight piece can travel.
 class Tree

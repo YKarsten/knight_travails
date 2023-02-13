@@ -59,7 +59,7 @@ class Board
   def in_check?(color)
     # find returns the actual instance of the king.
     # select would return an array that doesnt support #location method
-    king = pieces.find { |piece| piece.color == color && piece.is_a?(King) }.location
+    king = pieces.find { |piece| piece.color == color && piece.is_a?(King) }
 
     # guard clause
     raise 'No king on the board' if king.nil?
@@ -86,7 +86,7 @@ class Board
 
   def pieces
     # turn the 2D array into a 1D array and remove the nil values
-    grid.flatten.reject { |piece| piece.is_a(NullPiece) }
+    grid.flatten.reject { |piece| piece.is_a?(NullPiece) }
   end
 
   def move_piece(start_pos, end_pos)

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-require_relative './node'
-require_relative './tree'
-require_relative './piece'
+require_relative './knight_moves/node'
+require_relative './knight_moves/tree'
 
 # Basic pawn chess piece
 class Knight < Piece
@@ -17,14 +16,30 @@ class Knight < Piece
     color == :black ? "\u265E" : "\u2658"
   end
 
-  def available_moves
+  def move_dirs
+    [
+      [-2, -1],
+      [-2, 1],
+
+      [-1, 2],
+      [1, 2],
+
+      [2, 1],
+      [2, -1],
+
+      [-1, -2],
+      [1, -2]
+    ]
+  end
+
+  def knight_moves
     Tree.new(current_r, current_c)
   end
 
   # method used to find the shortest path for a knight from point a to b
   def level_order
     # if the tree is empty, return
-    root = available_moves.root
+    root = knight_moves.root
     return if root.nil?
 
     queue = [root]

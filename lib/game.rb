@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Class to control the game flow
 class Game
   attr_reader :player1, :player2, :board, :renderer
   attr_accessor :current_player
@@ -36,9 +37,9 @@ class Game
 
   def over?
     # checkmated
-    board.checkmate?(current_player.color) ||
-      # stalemate
-      current_player.pieces.all? { |piece| piece.available_moves.empty? }
+    board.checkmate?(current_player.color)
+    # stalemate
+    # current_player.pieces.all? { |piece| piece.available_moves.empty? }
   end
 
   def take_turn
@@ -48,7 +49,7 @@ class Game
     loop do
       puts 'Select a piece to move: '
       start_pos = current_player.get_pos
-      break if !board[start_pos].nil? && board[start_pos].color != current_player.color
+      break if board[start_pos].color != current_player.color
 
       puts "Did not select a #{current_player.color} piece."
     end
