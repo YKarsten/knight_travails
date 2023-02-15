@@ -31,7 +31,9 @@ class Piece
   end
 
   def enemy?(location)
-    board.in_bounds?(location) && board[location].color != color
+    board.in_bounds?(location) &&
+      board[location].color != color &&
+      !board[location].is_a?(NullPiece)
   end
 
   def current_r

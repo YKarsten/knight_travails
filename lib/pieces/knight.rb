@@ -32,14 +32,10 @@ class Knight < Piece
     ]
   end
 
-  def knight_moves
-    Tree.new(current_r, current_c)
-  end
-
   # method used to find the shortest path for a knight from point a to b
   def level_order
     # if the tree is empty, return
-    root = knight_moves.root
+    root = Tree.new(current_r, current_c).root
     return if root.nil?
 
     queue = [root]

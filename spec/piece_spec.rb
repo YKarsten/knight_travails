@@ -4,7 +4,7 @@
 
 # These HAVE to be at the top, before loading the piece classes
 require_relative '../lib/pieces_collection'
-require_relative '../lib/piece'
+require_relative '../lib/pieces/piece'
 require_relative '../lib/board'
 
 # Pawn tests
@@ -14,7 +14,7 @@ describe Pawn do
   describe 'Pawn #available_moves' do
     context 'when a pawn is on an empty board in starting position' do
       it 'can move to 2 positions' do
-        board[[1, 1]] = Pawn.new(board, [1, 1], :black)
+        board = Board.start_chess
         test_piece = board[[1, 1]]
 
         expect(test_piece.available_moves).to eq([[2, 1], [3, 1]])
@@ -122,6 +122,14 @@ end
 describe Rook do
   subject(:board) { Board.new }
   describe 'Rook #available_moves' do
+    context 'when the rook is in its starting position on a new board' do
+      it 'can not move' do
+        board = Board.start_chess
+        test_piece = board[[0, 0]]
+
+        expect(test_piece.available_moves.size).to eq(0)
+      end
+    end
     context 'when a rook is in its starting position [0, 0] on a new populated board' do
       it 'can not move' do
         board = Board.start_chess
@@ -154,23 +162,23 @@ end
 
 describe Bishop do
   subject(:board) { Board.new }
-  describe 'Rook #available_moves' do
+  describe 'Bishop #available_moves' do
     context 'when a bishop is in its starting position [0, 2] on a new populated board' do
       it 'can not move' do
         board = Board.start_chess
         # black bishop
-        test_piece = board[[0, 1]]
+        test_piece = board[[0, 2]]
 
         expect(test_piece.available_moves.size).to eq(0)
       end
     end
-    context 'when a bishop is in position [0, 1] on an empty board ' do
-      it 'can reach [1, 0] and [6, 7]' do
-        board[[0, 1]] = Bishop.new(board, [0, 1], :black)
-        test_piece = board[[0, 1]]
+    context 'when a bishop is in position [0, 2] on an empty board ' do
+      it 'can reach [2, 0] and [5, 7]' do
+        board[[0, 2]] = Bishop.new(board, [0, 2], :black)
+        test_piece = board[[0, 2]]
 
         expect(test_piece.available_moves.size).to eq(7)
-        expect(test_piece.available_moves).to include([1, 0], [6, 7])
+        expect(test_piece.available_moves).to include([2, 0], [5, 7])
       end
     end
     context 'when the board is populated' do
@@ -180,6 +188,39 @@ describe Bishop do
         test_piece = board[[3, 3]]
 
         expect(test_piece.available_moves).to include([1, 1], [1, 5])
+      end
+    end
+  end
+end
+
+describe Knight do
+  subject(:board) { Board.new }
+  describe 'Knight #available_moves' do
+    context 'When a Knight is on its starting position [0, 1] on a new populated board' do
+      it 'can move to [2, 0], [2, 2]' do
+        board = Board.start_chess
+        test_piece = board[[0, 1]]
+
+        expect(test_piece.available_moves.size).to eq(2)
+        expect(test_piece.available_moves).to include([2, 0], [2, 2])
+      end
+    end
+    context 'When a knight is in the middle of an empty board' do
+      it 'can move to eight surrounding locations' do
+        board = Board.new
+        board[[4, 4]] = Knight.new(board, [4, 4], :black)
+        test_piece = board[[4, 4]]
+
+        expect(test_piece.available_moves.size).to eq(8)
+      end
+    end
+    context 'when the board is populated' do
+      it 'can capture enemy pieces' do
+        board = Board.start_chess
+        board[[3, 3]] = Knight.new(board, [3, 3], :white)
+        test_piece = board[[3, 3]]
+
+        expect(test_piece.available_moves).to include([1, 2], [1, 4])
       end
     end
   end

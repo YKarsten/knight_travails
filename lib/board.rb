@@ -94,7 +94,7 @@ class Board
     piece = self[start_pos]
 
     unless piece.safe_moves.include?(end_pos)
-      raise InavlidMoveError.new(
+      raise InvalidMoveError.new(
         "End position #{end_pos} not in available moves: #{piece.safe_moves}"
       )
     end
