@@ -66,7 +66,7 @@ class Game
         break
         # in case there is the specific error of not providing a valid end position.
         # rescue that error and provide a custom message.
-      rescue InavlidMoveError => e
+      rescue InvalidMoveError => e
         puts e.message
       end
     end
